@@ -6,7 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#117a52">
 <title>SOLUYA | Des solutions intelligentes</title>
-<meta name="description" content="Découvrez les solutions numériques SOLUYA pour mieux gérer votre argent et votre quotidien.">
+<meta name="description" content="SOLUYA propose des solutions numériques pratiques pour mieux gérer votre argent et votre quotidien.">
 
 <style>
 *{margin:0;padding:0;box-sizing:border-box}
@@ -16,8 +16,11 @@
   --light:#f5f8f6;
   --muted:#718078;
 }
+html{scroll-behavior:smooth}
 body{font-family:Arial,sans-serif;color:var(--dark);background:white}
 a{text-decoration:none;color:inherit}
+button,input{font:inherit}
+
 header{
  display:flex;justify-content:space-between;align-items:center;
  padding:20px 8%;background:white;border-bottom:1px solid #edf0ed;
@@ -28,7 +31,8 @@ nav{display:flex;gap:28px;align-items:center;font-size:14px;font-weight:600}
 nav a:hover{color:var(--green)}
 .nav-btn,.primary{
  background:var(--green);color:white;padding:13px 21px;
- border-radius:8px;font-weight:bold;display:inline-block
+ border-radius:8px;font-weight:bold;display:inline-block;
+ border:0;cursor:pointer
 }
 .hero{
  background:linear-gradient(120deg,#e9f5ee,#f7faf8);
@@ -51,6 +55,7 @@ nav a:hover{color:var(--green)}
 .art-card small{color:var(--muted)}
 .art-card h2{font-size:35px;margin:12px 0;color:var(--green)}
 .art-row{display:flex;justify-content:space-between;padding:14px 0;border-bottom:1px solid #d7e8dc}
+
 section{padding:85px 8%}
 .heading{text-align:center;margin-bottom:45px}
 .heading h2{font-size:34px;margin-bottom:10px}
@@ -69,18 +74,73 @@ section{padding:85px 8%}
 .product p{color:var(--muted);font-size:14px;line-height:1.8;min-height:75px}
 .product .price{font-weight:bold;color:var(--green);margin-top:17px}
 .product .buy{display:inline-block;margin-top:17px;color:var(--green);font-weight:bold}
+.product .buy:hover{text-decoration:underline}
+.product-label{
+ display:inline-block;color:var(--green);font-size:11px;
+ font-weight:bold;margin-top:15px
+}
+
 .benefits{background:var(--light)}
 .benefit-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;text-align:center}
 .benefit{padding:20px}
 .benefit .emoji{font-size:32px}
 .benefit h3{margin:15px 0 8px}
 .benefit p{color:var(--muted);font-size:14px;line-height:1.7}
-.about{
- background:var(--dark);color:white;text-align:center;padding:75px 8%
-}
+.about{background:var(--dark);color:white;text-align:center;padding:75px 8%}
 .about p{max-width:650px;margin:17px auto;color:#cadbd2;line-height:1.8}
+
 footer{padding:35px 8%;background:#0d211a;color:#c5d3cc;text-align:center;font-size:13px}
 footer strong{color:white}
+
+/* FENETRE DE COMMANDE */
+.modal{
+ display:none;position:fixed;inset:0;z-index:100;
+ background:rgba(0,0,0,.65);
+ padding:20px;overflow-y:auto;
+ align-items:center;justify-content:center
+}
+.modal.active{display:flex}
+.modal-content{
+ width:100%;max-width:500px;background:white;
+ border-radius:18px;padding:30px;position:relative;
+ margin:auto
+}
+.close{
+ position:absolute;right:18px;top:15px;
+ border:0;background:none;font-size:28px;
+ cursor:pointer;color:#718078
+}
+.modal-content h2{font-size:25px;margin:12px 0 8px}
+.modal-description{color:var(--muted);font-size:14px;line-height:1.6}
+.order-price{
+ background:#eaf5ee;border-radius:12px;padding:18px;
+ margin:20px 0
+}
+.order-price strong{display:block;color:var(--green);font-size:28px;margin-top:5px}
+.form-group{margin-bottom:16px}
+.form-group label{display:block;font-weight:bold;font-size:14px;margin-bottom:7px}
+.form-group input{
+ width:100%;padding:13px;border:1px solid #dce5df;
+ border-radius:8px;outline:none
+}
+.form-group input:focus{border-color:var(--green)}
+.payment-info{
+ background:#fff7e6;color:#795b19;
+ padding:13px;border-radius:9px;
+ font-size:13px;line-height:1.6;margin:15px 0
+}
+.submit-btn{
+ width:100%;padding:15px;background:var(--green);
+ color:white;border:0;border-radius:9px;
+ font-weight:bold;cursor:pointer
+}
+.submit-btn:hover{background:#0d6342}
+.form-message{
+ display:none;margin-top:15px;padding:13px;
+ border-radius:8px;font-size:13px;line-height:1.6
+}
+.form-message.show{display:block;background:#fff7e6;color:#795b19}
+
 @media(max-width:800px){
  header{padding:17px 5%}
  nav{gap:12px;font-size:12px}
@@ -94,11 +154,13 @@ footer strong{color:white}
 @media(max-width:390px){
  .logo{font-size:22px}
  nav{gap:9px}
+ .modal-content{padding:23px}
 }
 </style>
 </head>
 
 <body>
+
 <header>
   <a class="logo" href="#accueil">SOLUYA.</a>
   <nav>
@@ -110,6 +172,7 @@ footer strong{color:white}
 </header>
 
 <main>
+
 <section class="hero" id="accueil">
   <div>
     <span class="tag">✦ LE NUMÉRIQUE À VOTRE SERVICE</span>
@@ -143,18 +206,24 @@ footer strong{color:white}
   </div>
 
   <div class="products">
+
+    <!-- PRODUIT BUDGET FACILE -->
     <article class="product">
       <div class="product-icon">💰</div>
+      <span class="product-label">PRODUIT NUMÉRIQUE</span>
       <h3>Budget Facile</h3>
       <p>
-        Organisez vos revenus, contrôlez vos dépenses
-        et suivez votre évolution financière grâce à
-        un outil pratique.
+        Prenez le contrôle de votre argent.
+        Suivez vos revenus, vos dépenses,
+        votre épargne et votre budget mensuel.
       </p>
-      <div class="price">Prix : bientôt disponible</div>
-      <a class="buy" href="#contact">Découvrir le produit →</a>
+      <div class="price" style="font-size:24px">999 FCFA</div>
+      <button class="buy" onclick="openOrder()">
+        Acheter maintenant →
+      </button>
     </article>
 
+    <!-- PRODUIT 2 -->
     <article class="product">
       <div class="product-icon">📈</div>
       <h3>Gestion Pro</h3>
@@ -166,6 +235,7 @@ footer strong{color:white}
       <a class="buy" href="#contact">En savoir plus →</a>
     </article>
 
+    <!-- PRODUIT 3 -->
     <article class="product">
       <div class="product-icon">🚀</div>
       <h3>Solutions à venir</h3>
@@ -177,6 +247,7 @@ footer strong{color:white}
       <div class="price">En préparation</div>
       <a class="buy" href="#contact">Nous contacter →</a>
     </article>
+
   </div>
 </section>
 
@@ -185,17 +256,20 @@ footer strong{color:white}
     <h2>Pourquoi choisir SOLUYA ?</h2>
     <p>Notre vision : rendre le numérique plus utile à tous.</p>
   </div>
+
   <div class="benefit-grid">
     <div class="benefit">
       <div class="emoji">⚡</div>
       <h3>Simple à utiliser</h3>
       <p>Des outils accessibles même aux débutants.</p>
     </div>
+
     <div class="benefit">
       <div class="emoji">📱</div>
       <h3>Partout avec vous</h3>
       <p>Une expérience adaptée aux téléphones et ordinateurs.</p>
     </div>
+
     <div class="benefit">
       <div class="emoji">🎯</div>
       <h3>Utile au quotidien</h3>
@@ -223,6 +297,7 @@ footer strong{color:white}
     Nos coordonnées de contact seront bientôt disponibles.
   </p>
 </section>
+
 </main>
 
 <footer>
@@ -230,5 +305,96 @@ footer strong{color:white}
   <p style="margin-top:10px">Des solutions simples pour avancer.</p>
   <p style="margin-top:15px">© 2026 SOLUYA. Tous droits réservés.</p>
 </footer>
+
+<!-- FENETRE DE COMMANDE INTEGREE -->
+<div class="modal" id="orderModal" role="dialog"
+     aria-modal="true" aria-labelledby="orderTitle">
+
+  <div class="modal-content">
+    <button class="close" onclick="closeOrder()" aria-label="Fermer">&times;</button>
+
+    <div class="logo">SOLUYA.</div>
+    <h2 id="orderTitle">Commander Budget Facile</h2>
+    <p class="modal-description">
+      Remplissez les informations ci-dessous pour préparer votre commande.
+    </p>
+
+    <div class="order-price">
+      Budget Facile
+      <strong>999 FCFA</strong>
+    </div>
+
+    <form id="orderForm">
+
+      <div class="form-group">
+        <label for="customerName">Nom complet</label>
+        <input id="customerName" name="name"
+               type="text" placeholder="Votre nom complet" required>
+      </div>
+
+      <div class="form-group">
+        <label for="customerEmail">Adresse e-mail</label>
+        <input id="customerEmail" name="email"
+               type="email" placeholder="exemple@gmail.com" required>
+      </div>
+
+      <div class="form-group">
+        <label for="customerPhone">Numéro de téléphone</label>
+        <input id="customerPhone" name="phone"
+               type="tel" placeholder="Ex : 01XXXXXXXX" required>
+      </div>
+
+      <div class="payment-info">
+        <strong>📱 Paiement MTN Mobile Money</strong><br>
+        Le paiement sera activé après la connexion au service
+        de paiement sécurisé. Aucune somme ne sera débitée
+        depuis cette page pour le moment.
+      </div>
+
+      <button type="submit" class="submit-btn">
+        Continuer ma commande
+      </button>
+
+      <div id="formMessage" class="form-message" role="status"></div>
+
+    </form>
+  </div>
+</div>
+
+<script>
+const modal = document.getElementById("orderModal");
+const form = document.getElementById("orderForm");
+const message = document.getElementById("formMessage");
+
+function openOrder(){
+  modal.classList.add("active");
+  document.body.style.overflow="hidden";
+  message.classList.remove("show");
+  document.getElementById("customerName").focus();
+}
+
+function closeOrder(){
+  modal.classList.remove("active");
+  document.body.style.overflow="";
+}
+
+modal.addEventListener("click",function(e){
+  if(e.target===modal) closeOrder();
+});
+
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape") closeOrder();
+});
+
+form.addEventListener("submit",function(e){
+  e.preventDefault();
+
+  message.textContent =
+    "Votre formulaire est prêt, mais la commande n'a pas encore été transmise. Le système de paiement MTN MoMo et l'enregistrement sécurisé doivent être connectés avant de pouvoir finaliser votre achat. Aucun paiement n'a été effectué.";
+
+  message.classList.add("show");
+});
+</script>
+
 </body>
 </html>
