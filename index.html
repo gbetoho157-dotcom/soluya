@@ -1,0 +1,171 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="SOLUYA : des outils numériques simples pour mieux gérer votre quotidien.">
+  <title>SOLUYA – Des solutions simples</title>
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: Arial, sans-serif;
+      background: #f8faf9;
+      color: #172b24;
+      line-height: 1.6;
+    }
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 22px 8%;
+      background: white;
+    }
+    .logo { font-size: 27px; font-weight: 800; color: #159b68; }
+    nav a {
+      text-decoration: none;
+      color: #263b32;
+      margin-left: 22px;
+      font-weight: 600;
+    }
+    .hero {
+      padding: 90px 8%;
+      background: linear-gradient(120deg,#e4f7ed,#f8faf9);
+      text-align: center;
+    }
+    .hero h1 { font-size: clamp(36px,6vw,58px); line-height: 1.15; }
+    .hero h1 span { color: #159b68; }
+    .hero p {
+      max-width: 600px;
+      margin: 20px auto;
+      color: #64736b;
+      font-size: 18px;
+    }
+    .btn {
+      display: inline-block;
+      padding: 14px 25px;
+      background: #159b68;
+      color: white;
+      text-decoration: none;
+      border-radius: 9px;
+      font-weight: bold;
+      margin-top: 15px;
+    }
+    section { padding: 65px 8%; }
+    .section-title { text-align: center; margin-bottom: 35px; }
+    .section-title h2 { font-size: 32px; }
+    .section-title p { color: #758078; }
+    .products {
+      display: grid;
+      grid-template-columns: repeat(auto-fit,minmax(250px,1fr));
+      gap: 25px;
+    }
+    .product {
+      background: white;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 5px 25px rgba(0,0,0,.05);
+    }
+    .product-icon { font-size: 42px; }
+    .product h3 { margin: 15px 0 8px; }
+    .product p { color: #69766f; }
+    .product .btn { margin-top: 20px; }
+    .about {
+      background: #173c30;
+      color: white;
+      text-align: center;
+    }
+    .about p { max-width: 650px; margin: 15px auto; color: #d2e5dc; }
+    footer {
+      text-align: center;
+      padding: 25px;
+      color: #738078;
+      background: white;
+    }
+    @media(max-width:600px) {
+      header { padding: 18px 5%; }
+      nav a { margin-left: 10px; font-size: 13px; }
+      .hero { padding: 65px 6%; }
+      section { padding: 50px 6%; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">SOLUYA.</div>
+  <nav>
+    <a href="#accueil">Accueil</a>
+    <a href="#produits">Produits</a>
+    <a href="#apropos">À propos</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="accueil">
+    <h1>Des solutions simples.<br><span>Une vie mieux organisée.</span></h1>
+    <p>
+      Découvrez des outils numériques pratiques pour
+      mieux gérer votre argent, votre temps et votre quotidien.
+    </p>
+    <a href="#produits" class="btn">Découvrir nos produits</a>
+  </section>
+
+  <section id="produits">
+    <div class="section-title">
+      <h2>Nos produits numériques</h2>
+      <p>Des outils conçus pour vous simplifier la vie.</p>
+    </div>
+
+    <div class="products">
+      <article class="product">
+        <div class="product-icon">💰</div>
+        <h3>Budget Facile</h3>
+        <p>
+          Un outil pratique pour suivre vos revenus,
+          vos dépenses et mieux organiser votre budget.
+        </p>
+        <a href="mailto:contact@soluya.com?subject=Demande%20Budget%20Facile"
+           class="btn">Découvrir</a>
+      </article>
+
+      <article class="product">
+        <div class="product-icon">📊</div>
+        <h3>Outils de gestion</h3>
+        <p>
+          Des outils simples pour faciliter votre
+          organisation personnelle et professionnelle.
+        </p>
+        <a href="mailto:contact@soluya.com?subject=Outils%20de%20gestion"
+           class="btn">Bientôt disponible</a>
+      </article>
+
+      <article class="product">
+        <div class="product-icon">🚀</div>
+        <h3>Nos prochaines solutions</h3>
+        <p>
+          De nouvelles solutions numériques
+          pour répondre à vos besoins quotidiens.
+        </p>
+        <a href="mailto:contact@soluya.com"
+           class="btn">Nous contacter</a>
+      </article>
+    </div>
+  </section>
+
+  <section class="about" id="apropos">
+    <h2>Pourquoi SOLUYA ?</h2>
+    <p>
+      Notre mission est de rendre les outils numériques
+      accessibles à tous grâce à des solutions simples,
+      pratiques et abordables.
+    </p>
+  </section>
+</main>
+
+<footer>
+  © 2026 SOLUYA – Tous droits réservés.
+</footer>
+
+</body>
+</html>
